@@ -10,8 +10,9 @@ public class PhoneNumberValidator implements ConstraintValidator<IsPhoneNumber, 
     @Override
     public boolean isValid(String payload, ConstraintValidatorContext constraintValidatorContext) {
         try {
-            PhoneNumberUtil.getInstance().parse(payload, "FI");
-            return true;
+            var phoneNumberUtil = PhoneNumberUtil.getInstance();
+            var phoneNumber = phoneNumberUtil.parse(payload, "FI");
+            return phoneNumberUtil.isValidNumber(phoneNumber);
         } catch (NumberParseException e) {
             return false;
         }
